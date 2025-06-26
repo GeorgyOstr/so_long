@@ -16,6 +16,7 @@ typedef struct	s_vars {
 	void	*win;
 	t_data	*img;	
 	int		i;
+	int		j;
 }				t_vars;
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
@@ -37,9 +38,31 @@ int	ev(int keycode, t_vars *vars)
 	//	j++;
 	//}
 	//vars->i++;
-	printf("%i, %i\n", vars->img->img_width, vars->img->img_height);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->img->img, vars->i++, 0);
-	vars->i++;
+	int	x=0, y=0;
+	if (keycode == 1731)
+	{
+		x = 0;
+		y = -1;
+	}
+	if (keycode == 1734)
+	{
+		x = -1;
+		y = 0;
+	}
+	if (keycode == 1753)
+	{
+		x = 0;
+		y = 1;
+	}
+	if (keycode == 1751)
+	{
+		x = 1;
+		y = 0;
+	}
+	vars->i += x;
+	vars->j += y;
+	printf("%i, %i, %i\n", vars->img->img_width, vars->img->img_height, keycode);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->img->img, vars->i, vars->j);
 	return (0);
 }
 
@@ -63,6 +86,7 @@ int	main(void)
 	vars.img = &img;
 	mlx_hook(vars.win, 2, 1L<<0, ev, &vars);
 	vars.i = 0;
+	vars.j = 0;
 	//mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
 	mlx_loop(vars.mlx);
 }

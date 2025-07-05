@@ -6,7 +6,7 @@
 /*   By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 23:09:31 by gostroum          #+#    #+#             */
-/*   Updated: 2025/07/05 14:14:47 by gostroum         ###   ########.fr       */
+/*   Updated: 2025/07/05 14:34:11 by gostroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ int	main(void)
 	t_vars	vars;
 	int		img_width;
 	int		img_height;
-	const char	*relative_path = "assets/gribchik128.xpm";
-	const char	*relative_path2 = "assets/back128.xpm";
+	const char	*relative_path = "assets/char_down.xpm";
+	const char	*relative_path2 = "assets/back.xpm";
 
 	t_map map;
 	map.w = 5;

@@ -6,41 +6,11 @@
 /*   By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 23:09:31 by gostroum          #+#    #+#             */
-/*   Updated: 2025/06/28 18:32:04 by gostroum         ###   ########.fr       */
+/*   Updated: 2025/07/05 14:14:47 by gostroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx.h"
-#include <stdio.h>
-
-typedef struct	s_data {
-	void	*img;
-	int		img_width;
-	int		img_height;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}				t_data;
-
-typedef struct	s_map	{
-	int	data[4096];
-	int w;
-	int	h;
-	int	points;
-	int points_to_finish;
-}				t_map;
-
-typedef struct	s_vars {
-	void	*mlx;
-	void	*win;
-	t_data	*img;	
-	t_data	*back;	
-	t_map	*map;
-	int		i;
-	int		j;
-}				t_vars;
-
+#include "so_long.h"
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
@@ -93,11 +63,11 @@ int	ev(int keycode, t_vars *vars)
 	y = vars->j + y;
 	if (try_move(vars->map, x, y))
 	{
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->back->img, 64*vars->i, 64*vars->j);
+		mlx_put_image_to_window(vars->mlx, vars->win, vars->back->img, 128*vars->i, 128*vars->j);
 		vars->i = x;
 		vars->j = y;
 		printf("%i, %i, %i, %i, %i\n", x, y, keycode, vars->map->data[vars->map->w * y + x], vars->map->w * y + x);
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->img->img, 64*vars->i, 64*vars->j);
+		mlx_put_image_to_window(vars->mlx, vars->win, vars->img->img, 128*vars->i, 128*vars->j);
 	}
 	return (0);
 }
@@ -110,8 +80,8 @@ int	main(void)
 	t_vars	vars;
 	int		img_width;
 	int		img_height;
-	const char	*relative_path = "open.xpm";
-	const char	*relative_path2 = "black.xpm";
+	const char	*relative_path = "assets/gribchik128.xpm";
+	const char	*relative_path2 = "assets/back128.xpm";
 
 	t_map map;
 	map.w = 5;
@@ -126,10 +96,10 @@ int	main(void)
 	map.data[24]=3;
 	
 	vars.mlx = mlx_init();
-	vars.win = mlx_new_window(vars.mlx, 640, 480, "Hello world!");
+	vars.win = mlx_new_window(vars.mlx, 640, 640, "GRIBCHIK_GAME");
 	vars.map = &map;
 
-	img.img = mlx_new_image(vars.mlx, 64, 64);
+	img.img = mlx_new_image(vars.mlx, 128, 128);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 								&img.endian);
 	img.img = mlx_xpm_file_to_image(vars.mlx, relative_path, &img_width, &img_height);
@@ -137,7 +107,7 @@ int	main(void)
 	img.img_height = img_height;
 	vars.img = &img;
 
-	imgback.img = mlx_new_image(vars.mlx, 64, 64);
+	imgback.img = mlx_new_image(vars.mlx, 128, 128);
 	imgback.addr = mlx_get_data_addr(imgback.img, &imgback.bits_per_pixel, &imgback.line_length,
 								&imgback.endian);
 	imgback.img = mlx_xpm_file_to_image(vars.mlx, relative_path2, &img_width, &img_height);
@@ -148,6 +118,5 @@ int	main(void)
 	mlx_hook(vars.win, 2, 1L<<0, ev, &vars);
 	vars.i = 0;
 	vars.j = 0;
-	//mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
 	mlx_loop(vars.mlx);
 }

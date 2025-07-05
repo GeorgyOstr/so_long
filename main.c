@@ -28,7 +28,7 @@ int	try_move(t_map *map, int x, int y)
 	return (val);
 }
 
-int	ev(int keycode, t_vars *vars)
+int	ev(int keycode, t_game *vars)
 {
 	int	x;
 	int	y;
@@ -76,7 +76,7 @@ int	main(void)
 	t_data		img;
 	t_data		imgback;
 	int			i;
-	t_vars		vars;
+	t_game		vars;
 	int			img_width;
 	int			img_height;
 	const char	*relative_path = "assets/char_down.xpm";

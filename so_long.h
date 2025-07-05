@@ -39,7 +39,7 @@ typedef struct s_map
 	int	points_to_finish;
 }				t_map;
 
-typedef struct s_vars
+typedef struct s_game
 {
 	void	*mlx;
 	void	*win;
@@ -48,5 +48,5 @@ typedef struct s_vars
 	t_map	*map;
 	int		i;
 	int		j;
-}				t_vars;
+}				t_game;
 #endif

@@ -18,12 +18,13 @@
 
 # include "mlx.h"
 # include <stdio.h>
+# include <stdlib.h>
 
 typedef struct s_data
 {
 	void	*img;
-	int		img_width;
-	int		img_height;
+	int		width;
+	int		height;
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
@@ -43,6 +44,7 @@ typedef struct s_game
 {
 	void	*mlx;
 	void	*win;
+	t_data	*assets;
 	t_data	*img;	
 	t_data	*back;	
 	t_map	*map;

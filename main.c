@@ -159,7 +159,7 @@ int	main(void)
 
 	load_map(&map, "maps/map.bae");
 	game.mlx = mlx_init();
-	game.win = mlx_new_window(game.mlx, 640, 640, "GRIBCHIK_GAME");
+	game.win = mlx_new_window(game.mlx, map.w * 128, map.h * 128, "GRIBCHIK_GAME");
 	game.map = &map;
 	load_assets(&game);
 	render_map(&game);

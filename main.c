@@ -6,7 +6,7 @@
 /*   By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 23:09:31 by gostroum          #+#    #+#             */
-/*   Updated: 2025/07/06 00:12:41 by gostroum         ###   ########.fr       */
+/*   Updated: 2025/07/06 18:53:21 by gostroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,20 @@ int	render_pos(t_game *game, int asset, int x, int y)
 		128 * x, 128 * y);
 }
 
-int	try_move(t_game *game, t_map *map, int x, int y)
+int	try_move(t_game *game, int x, int y)
 {
-	const int	val = map->data[map->w * y + x];
+	const int	val = game->map->data[game->map->w * y + x];
 
-	if (x >= map->h || y >= map->w || x < 0 || y < 0)
+	if (x >= game->map->h || y >= game->map->w || x < 0 || y < 0)
 		return (0);
 	if (val == 2)
 	{
-		map->points += 1;
-		map->data[map->w * y + x] = 1;
-		if (map->points == map->points_to_finish)
-			render_pos(game, DOOR, map->exit_x, map->exit_y);
+		game->map->points += 1;
+		game->map->data[game->map->w * y + x] = 1;
+		if (game->map->points == game->map->points_to_finish)
+			render_pos(game, DOOR, game->map->exit_x, game->map->exit_y);
 	}
-	else if (val == 3 && map->points == map->points_to_finish)
+	else if (val == 3 && game->map->points == game->map->points_to_finish)
 		exit(0);
 	return (val);
 }
@@ -87,7 +87,7 @@ int	ev(int keycode, t_game *game)
 	int			dir_enum;
 	int			try;
 
-	dir_enum = 0;
+	dir_enum = -1;
 	if (keycode == KEY_W)
 		dir_enum = 0;
 	else if (keycode == KEY_A)
@@ -101,7 +101,8 @@ int	ev(int keycode, t_game *game)
 	else
 		return (0);
 	dir = (int *)directions[dir_enum];
-	try = try_move(game, game->map, game->i + dir[0], game->j + dir[1]);
+	render_pos(game, CHAR_UP + dir_enum, game->i, game->j);
+	try = try_move(game, game->i + dir[0], game->j + dir[1]);
 	if (try)
 		render(game, try, dir, dir_enum);
 	return (0);
@@ -159,7 +160,8 @@ int	main(void)
 
 	load_map(&map, "maps/map.bae");
 	game.mlx = mlx_init();
-	game.win = mlx_new_window(game.mlx, map.w * 128, map.h * 128, "GRIBCHIK_GAME");
+	game.win = mlx_new_window(game.mlx,
+			map.w * 128, map.h * 128, "GRIBCHIK_GAME");
 	game.map = &map;
 	load_assets(&game);
 	render_map(&game);

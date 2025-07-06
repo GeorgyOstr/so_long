@@ -50,7 +50,7 @@ int	render(t_game *game, int asset, int *dir, int dir_enum)
 	if (asset == 3 && game->map->points == game->map->points_to_finish)
 		render_pos(game, CHAR_DOOR, game->map->char_x, game->map->char_y);
 	else if (asset == 1 || asset == 3)
-		render_pos(game, CHAR_UP + dir_enum,
+		render_pos(game, CHAR_BACK + dir_enum,
 			game->map->char_x, game->map->char_y);
 	else if (asset == 2)
 		render_pos(game, CHAR_ITEM, game->map->char_x, game->map->char_y);
@@ -79,7 +79,7 @@ int	render_map(t_game *game)
 		}
 		i++;
 	}
-	render_pos(game, CHAR_DOWN, game->map->char_x, game->map->char_y);
+	render_pos(game, CHAR_FRONT, game->map->char_x, game->map->char_y);
 }
 
 int	ev(int keycode, t_game *game)
@@ -103,7 +103,7 @@ int	ev(int keycode, t_game *game)
 	else
 		return (0);
 	dir = (int *)directions[dir_enum];
-	render_pos(game, CHAR_UP + dir_enum, game->map->char_x, game->map->char_y);
+	render_pos(game, CHAR_BACK + dir_enum, game->map->char_x, game->map->char_y);
 	try = try_move(game,
 			game->map->char_x + dir[0], game->map->char_y + dir[1]);
 	if (try)
@@ -115,8 +115,8 @@ int	load_assets(t_game *game)
 {
 	const char	paths[10][50] = {"assets/back.xpm", "assets/wall.xpm",
 		"assets/door.xpm", "assets/item.xpm",
-		"assets/char_up.xpm", "assets/char_left.xpm",
-		"assets/char_down.xpm", "assets/char_right.xpm",
+		"assets/char_back.xpm", "assets/char_left.xpm",
+		"assets/char_front.xpm", "assets/char_right.xpm",
 		"assets/char_door.xpm", "assets/char_item.xpm"};
 	int			i;
 

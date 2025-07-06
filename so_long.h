@@ -27,9 +27,9 @@
 # define DOOR			2
 # define ITEM			3
 
-# define CHAR_UP		4
+# define CHAR_BACK		4
 # define CHAR_LEFT		5
-# define CHAR_DOWN		6
+# define CHAR_FRONT		6
 # define CHAR_RIGHT		7
 
 # define CHAR_DOOR		8

@@ -13,14 +13,27 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# define MAX_WIDTH	60
-# define MAX_HEIGHT	30
+# define MAX_WIDTH		60
+# define MAX_HEIGHT		30
 
-# define KEY_W		1731
-# define KEY_A		1734
-# define KEY_S		1753
-# define KEY_D		1751
-# define KEY_ESC	65307
+# define KEY_W			1731
+# define KEY_A			1734
+# define KEY_S			1753
+# define KEY_D			1751
+# define KEY_ESC		65307
+
+# define BACK			0
+# define WALL			1
+# define DOOR			2
+# define ITEM			3
+
+# define CHAR_UP		4
+# define CHAR_LEFT		5
+# define CHAR_DOWN		6
+# define CHAR_RIGHT		7
+
+# define CHAR_DOOR		8
+# define CHAR_ITEM		9
 
 # include "mlx.h"
 # include <stdio.h>
@@ -42,6 +55,10 @@ typedef struct s_map
 	int	data[4096];
 	int	w;
 	int	h;
+	int	exit_x;
+	int	exit_y;
+	int	start_x;
+	int	start_y;
 	int	points;
 	int	points_to_finish;
 }				t_map;
@@ -52,8 +69,6 @@ typedef struct s_game
 	void	*win;
 	t_data	assets[10];
 	t_map	*map;
-	t_data	*img;	
-	t_data	*back;	
 	int		i;
 	int		j;
 }				t_game;

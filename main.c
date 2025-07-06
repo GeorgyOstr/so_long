@@ -40,18 +40,20 @@ int	try_move(t_game *game, int x, int y)
 int	render(t_game *game, int asset, int *dir, int dir_enum)
 {
 	mlx_put_image_to_window(game->mlx,
-		game->win, (game->assets + BACK)->img, 128 * game->i, 128 * game->j);
-	game->i = game->i + dir[0];
-	game->j = game->j + dir[1];
-	printf("%i, %i, %i, %i\n", game->i, game->j,
-		game->map->data[game->map->w * game->j + game->i],
-		game->map->w * game->j + game->i);
+		game->win, (game->assets + BACK)->img,
+		128 * game->map->char_x, 128 * game->map->char_y);
+	game->map->char_x = game->map->char_x + dir[0];
+	game->map->char_y = game->map->char_y + dir[1];
+	printf("%i, %i, %i, %i\n", game->map->char_x, game->map->char_y,
+		game->map->data[game->map->w * game->map->char_y + game->map->char_x],
+		game->map->w * game->map->char_y + game->map->char_x);
 	if (asset == 1)
-		render_pos(game, CHAR_UP + dir_enum, game->i, game->j);
+		render_pos(game, CHAR_UP + dir_enum,
+			game->map->char_x, game->map->char_y);
 	else if (asset == 2)
-		render_pos(game, CHAR_ITEM, game->i, game->j);
+		render_pos(game, CHAR_ITEM, game->map->char_x, game->map->char_y);
 	else if (asset == 3)
-		render_pos(game, CHAR_DOOR, game->i, game->j);
+		render_pos(game, CHAR_DOOR, game->map->char_x, game->map->char_y);
 }
 
 int	render_map(t_game *game)
@@ -77,7 +79,7 @@ int	render_map(t_game *game)
 		}
 		i++;
 	}
-	render_pos(game, CHAR_DOWN, game->map->start_x, game->map->start_y);
+	render_pos(game, CHAR_DOWN, game->map->char_x, game->map->char_y);
 }
 
 int	ev(int keycode, t_game *game)
@@ -101,8 +103,9 @@ int	ev(int keycode, t_game *game)
 	else
 		return (0);
 	dir = (int *)directions[dir_enum];
-	render_pos(game, CHAR_UP + dir_enum, game->i, game->j);
-	try = try_move(game, game->i + dir[0], game->j + dir[1]);
+	render_pos(game, CHAR_UP + dir_enum, game->map->char_x, game->map->char_y);
+	try = try_move(game,
+			game->map->char_x + dir[0], game->map->char_y + dir[1]);
 	if (try)
 		render(game, try, dir, dir_enum);
 	return (0);
@@ -147,8 +150,8 @@ int	load_map(t_map *map, char *map_name)
 	map->data[24] = 3;
 	map->exit_x = 4;
 	map->exit_y = 4;
-	map->start_x = 0;
-	map->start_y = 0;
+	map->char_x = 0;
+	map->char_y = 0;
 }
 
 int	main(void)
@@ -166,7 +169,5 @@ int	main(void)
 	load_assets(&game);
 	render_map(&game);
 	mlx_hook(game.win, 2, 1L << 0, ev, &game);
-	game.i = 0;
-	game.j = 0;
 	mlx_loop(game.mlx);
 }

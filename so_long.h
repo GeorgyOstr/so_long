@@ -57,8 +57,8 @@ typedef struct s_map
 	int	h;
 	int	exit_x;
 	int	exit_y;
-	int	start_x;
-	int	start_y;
+	int	char_x;
+	int	char_y;
 	int	points;
 	int	points_to_finish;
 }				t_map;
@@ -69,7 +69,5 @@ typedef struct s_game
 	void	*win;
 	t_data	assets[10];
 	t_map	*map;
-	int		i;
-	int		j;
 }				t_game;
 #endif

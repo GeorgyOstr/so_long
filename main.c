@@ -30,41 +30,26 @@ int	try_move(t_map *map, int x, int y)
 
 int	ev(int keycode, t_game *vars)
 {
-	int	x;
-	int	y;
+	const int	directions[4][2] = {{0, -1}, {-1, 0}, {0, 1}, {1, 0}};
+	int			*dir;
 
-	x = 0;
-	y = 0;
 	if (keycode == 1731)
-	{
-		x = 0;
-		y = -1;
-	}
-	if (keycode == 1734)
-	{
-		x = -1;
-		y = 0;
-	}
-	if (keycode == 1753)
-	{
-		x = 0;
-		y = 1;
-	}
+		dir = directions[0];
+	else if (keycode == 1734)
+		dir = directions[1];
+	else if (keycode == 1753)
+		dir = directions[2];
 	if (keycode == 1751)
-	{
-		x = 1;
-		y = 0;
-	}
-	x = vars->i + x;
-	y = vars->j + y;
-	if (try_move(vars->map, x, y))
+		dir = directions[3];
+	if (try_move(vars->map, vars->i + dir[0], vars->j + dir[1]))
 	{
 		mlx_put_image_to_window(vars->mlx,
 			vars->win, vars->back->img, 128 * vars->i, 128 * vars->j);
-		vars->i = x;
-		vars->j = y;
-		printf("%i, %i, %i, %i, %i\n", x, y, keycode,
-			vars->map->data[vars->map->w * y + x], vars->map->w * y + x);
+		vars->i = vars->i + dir[0];
+		vars->j = vars->j + dir[1];
+		printf("%i, %i, %i, %i, %i\n", vars->i, vars->j, keycode,
+			vars->map->data[vars->map->w * vars->j + vars->i],
+			vars->map->w * vars->j + vars->i);
 		mlx_put_image_to_window(vars->mlx,
 			vars->win, vars->img->img, 128 * vars->i, 128 * vars->j);
 	}

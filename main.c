@@ -33,14 +33,18 @@ int	ev(int keycode, t_game *vars)
 	const int	directions[4][2] = {{0, -1}, {-1, 0}, {0, 1}, {1, 0}};
 	int			*dir;
 
-	if (keycode == 1731)
-		dir = directions[0];
-	else if (keycode == 1734)
-		dir = directions[1];
-	else if (keycode == 1753)
-		dir = directions[2];
-	if (keycode == 1751)
-		dir = directions[3];
+	if (keycode == KEY_W)
+		dir = (int *)directions[0];
+	else if (keycode == KEY_A)
+		dir = (int *)directions[1];
+	else if (keycode == KEY_S)
+		dir = (int *)directions[2];
+	else if (keycode == KEY_D)
+		dir = (int *)directions[3];
+	else if (keycode == KEY_ESC)
+		exit(0);
+	else
+		return (0);
 	if (try_move(vars->map, vars->i + dir[0], vars->j + dir[1]))
 	{
 		mlx_put_image_to_window(vars->mlx,
@@ -72,8 +76,8 @@ int	load_assets(t_game *vars)
 		vars->assets[i].addr = mlx_get_data_addr(vars->assets[i].img,
 				&vars->assets[i].bits_per_pixel,
 				&vars->assets[i].line_length, &vars->assets[i].endian);
-		vars->assets[i].img = mlx_xpm_file_to_image(vars->mlx,
-				paths[i], &vars->assets[i].width, &vars->assets[i].height);
+		vars->assets[i].img = mlx_xpm_file_to_image(vars->mlx, (char *)paths[i],
+				&vars->assets[i].width, &vars->assets[i].height);
 		i++;
 	}
 }

@@ -16,6 +16,12 @@
 # define MAX_WIDTH	60
 # define MAX_HEIGHT	30
 
+# define KEY_W		1731
+# define KEY_A		1734
+# define KEY_S		1753
+# define KEY_D		1751
+# define KEY_ESC	65307
+
 # include "mlx.h"
 # include <stdio.h>
 # include <stdlib.h>

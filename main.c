@@ -71,34 +71,32 @@ int	ev(int keycode, t_game *vars)
 	return (0);
 }
 
-int load_assets(t_game *vars)
+int	load_assets(t_game *vars)
 {
 	const char	paths[10][50] = {"assets/back.xpm", "assets/wall.xpm",
-                                "assets/door.xpm", "assets/item.xpm",
-								"assets/char_down.xpm", "assets/char_left.xpm",
-								"assets/char_right.xpm", "assets/char_up.xpm",
-								"assets/char_door.xpm", "assets/char_item.xpm"
-								};
-	t_data		assets[10];
+		"assets/door.xpm", "assets/item.xpm",
+		"assets/char_down.xpm", "assets/char_left.xpm",
+		"assets/char_right.xpm", "assets/char_up.xpm",
+		"assets/char_door.xpm", "assets/char_item.xpm"};
 	int			i;
 
 	i = 0;
 	while (i < 10)
 	{
-		assets[i].img = mlx_new_image(vars->mlx, 128, 128);
-		assets[i].addr = mlx_get_data_addr(assets[i].img, &(assets[i].bits_per_pixel),
-			&(assets[i].line_length), &(assets[i].endian));
-		assets[i].img = mlx_xpm_file_to_image(vars->mlx,
-			paths[i], &(assets[i].width), &(assets[i].height));
+		vars->assets[i].img = mlx_new_image(vars->mlx, 128, 128);
+		vars->assets[i].addr = mlx_get_data_addr(vars->assets[i].img,
+				&vars->assets[i].bits_per_pixel,
+				&vars->assets[i].line_length, &vars->assets[i].endian);
+		vars->assets[i].img = mlx_xpm_file_to_image(vars->mlx,
+				paths[i], &vars->assets[i].width, &vars->assets[i].height);
 		i++;
 	}
-	vars->assets = assets;
 }
 
-int load_map(t_map *map, char *map_name)
+int	load_map(t_map *map, char *map_name)
 {
 	int	i;
-	
+
 	(void)map_name;
 	map->w = 5;
 	map->h = 5;
@@ -116,29 +114,16 @@ int	main(void)
 {
 	t_data		img;
 	t_data		imgback;
-	int			i;
 	t_game		vars;
 	t_map		map;
-	const char	*relative_path = "assets/char_down.xpm";
-	const char	*relative_path2 = "assets/back.xpm";
 
 	load_map(&map, "maps/map.bae");
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, 640, 640, "GRIBCHIK_GAME");
 	vars.map = &map;
 	load_assets(&vars);
-	img.img = mlx_new_image(vars.mlx, 128, 128);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel,
-			&img.line_length, &img.endian);
-	img.img = mlx_xpm_file_to_image(vars.mlx,
-			relative_path, &(img.width ), &(img.height));
-	vars.img = &img;
-	imgback.img = mlx_new_image(vars.mlx, 128, 128);
-	imgback.addr = mlx_get_data_addr(imgback.img,
-			&imgback.bits_per_pixel, &imgback.line_length, &imgback.endian);
-	imgback.img = mlx_xpm_file_to_image(vars.mlx,
-			relative_path2, &(imgback.width), &(imgback.height));
-	vars.back = &imgback;
+	vars.img = &vars.assets[5];
+	vars.back = &vars.assets[0];
 	mlx_hook(vars.win, 2, 1L << 0, ev, &vars);
 	vars.i = 0;
 	vars.j = 0;

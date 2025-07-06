@@ -44,10 +44,10 @@ typedef struct s_game
 {
 	void	*mlx;
 	void	*win;
-	t_data	*assets;
+	t_data	assets[10];
+	t_map	*map;
 	t_data	*img;	
 	t_data	*back;	
-	t_map	*map;
 	int		i;
 	int		j;
 }				t_game;

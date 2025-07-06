@@ -47,13 +47,13 @@ int	render(t_game *game, int asset, int *dir, int dir_enum)
 	printf("%i, %i, %i, %i\n", game->map->char_x, game->map->char_y,
 		game->map->data[game->map->w * game->map->char_y + game->map->char_x],
 		game->map->w * game->map->char_y + game->map->char_x);
-	if (asset == 1)
+	if (asset == 3 && game->map->points == game->map->points_to_finish)
+		render_pos(game, CHAR_DOOR, game->map->char_x, game->map->char_y);
+	else if (asset == 1 || asset == 3)
 		render_pos(game, CHAR_UP + dir_enum,
 			game->map->char_x, game->map->char_y);
 	else if (asset == 2)
 		render_pos(game, CHAR_ITEM, game->map->char_x, game->map->char_y);
-	else if (asset == 3)
-		render_pos(game, CHAR_DOOR, game->map->char_x, game->map->char_y);
 }
 
 int	render_map(t_game *game)

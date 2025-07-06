@@ -41,19 +41,19 @@ int	render(t_game *game, int asset, int *dir, int dir_enum)
 {
 	mlx_put_image_to_window(game->mlx,
 		game->win, (game->assets + BACK)->img,
-		128 * game->map->char_x, 128 * game->map->char_y);
-	game->map->char_x = game->map->char_x + dir[0];
-	game->map->char_y = game->map->char_y + dir[1];
-	printf("%i, %i, %i, %i\n", game->map->char_x, game->map->char_y,
-		game->map->data[game->map->w * game->map->char_y + game->map->char_x],
-		game->map->w * game->map->char_y + game->map->char_x);
+		128 * game->map->x, 128 * game->map->y);
+	game->map->x = game->map->x + dir[0];
+	game->map->y = game->map->y + dir[1];
+	printf("%i, %i, %i, %i\n", game->map->x, game->map->y,
+		game->map->data[game->map->w * game->map->y + game->map->x],
+		game->map->w * game->map->y + game->map->x);
 	if (asset == 3 && game->map->points == game->map->points_to_finish)
-		render_pos(game, CHAR_DOOR, game->map->char_x, game->map->char_y);
+		render_pos(game, CHAR_DOOR, game->map->x, game->map->y);
 	else if (asset == 1 || asset == 3)
 		render_pos(game, CHAR_BACK + dir_enum,
-			game->map->char_x, game->map->char_y);
+			game->map->x, game->map->y);
 	else if (asset == 2)
-		render_pos(game, CHAR_ITEM, game->map->char_x, game->map->char_y);
+		render_pos(game, CHAR_ITEM, game->map->x, game->map->y);
 }
 
 int	render_map(t_game *game)
@@ -79,7 +79,7 @@ int	render_map(t_game *game)
 		}
 		i++;
 	}
-	render_pos(game, CHAR_FRONT, game->map->char_x, game->map->char_y);
+	render_pos(game, CHAR_FRONT, game->map->x, game->map->y);
 }
 
 int	ev(int keycode, t_game *game)
@@ -103,9 +103,9 @@ int	ev(int keycode, t_game *game)
 	else
 		return (0);
 	dir = (int *)directions[dir_enum];
-	render_pos(game, CHAR_BACK + dir_enum, game->map->char_x, game->map->char_y);
+	render_pos(game, CHAR_BACK + dir_enum, game->map->x, game->map->y);
 	try = try_move(game,
-			game->map->char_x + dir[0], game->map->char_y + dir[1]);
+			game->map->x + dir[0], game->map->y + dir[1]);
 	if (try)
 		render(game, try, dir, dir_enum);
 	return (0);
@@ -150,8 +150,8 @@ int	load_map(t_map *map, char *map_name)
 	map->data[24] = 3;
 	map->exit_x = 4;
 	map->exit_y = 4;
-	map->char_x = 0;
-	map->char_y = 0;
+	map->x = 0;
+	map->y = 0;
 }
 
 int	main(void)

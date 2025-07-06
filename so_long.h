@@ -57,8 +57,8 @@ typedef struct s_map
 	int	h;
 	int	exit_x;
 	int	exit_y;
-	int	char_x;
-	int	char_y;
+	int	x;
+	int	y;
 	int	points;
 	int	points_to_finish;
 }				t_map;

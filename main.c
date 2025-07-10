@@ -6,7 +6,7 @@
 /*   By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 23:09:31 by gostroum          #+#    #+#             */
-/*   Updated: 2025/07/06 18:53:21 by gostroum         ###   ########.fr       */
+/*   Updated: 2025/07/07 14:33:54 by gostroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,22 +136,35 @@ int	load_assets(t_game *game)
 int	load_map(t_map *map, char *map_name)
 {
 	int	i;
+	int	j;
 
 	(void)map_name;
-	map->w = 5;
-	map->h = 5;
+	map->w = 7;
+	map->h = 7;
 	map->points = 0;
 	map->points_to_finish = 1;
 	i = 0;
 	while (i < 1000)
-		map->data[i++] = 1;
-	map->data[2] = 0;
-	map->data[5] = 2;
-	map->data[24] = 3;
+		map->data[i++] = 0;
+	i = 1;
+	while (i < map->h - 1)
+	{
+		j = 1;
+		while (j < map->w - 1)
+		{
+			map->data[i * map->w + j] = 1;
+			j++;
+		}
+		i++;
+	}	
+	map->data[17] = 0;
+	map->data[23] = 0;
+	map->data[12] = 2;
+	map->data[32] = 3;
 	map->exit_x = 4;
 	map->exit_y = 4;
-	map->x = 0;
-	map->y = 0;
+	map->x = 1;
+	map->y = 1;
 }
 
 int	main(void)

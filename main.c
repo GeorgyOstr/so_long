@@ -6,11 +6,12 @@
 /*   By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 23:09:31 by gostroum          #+#    #+#             */
-/*   Updated: 2025/07/10 22:01:38 by gostroum         ###   ########.fr       */
+/*   Updated: 2025/07/10 22:09:34 by gostroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include "ft_printf.h"
 
 int	render_pos(t_game *game, int asset, int x, int y)
 {
@@ -32,7 +33,7 @@ int	try_move(t_game *game, int x, int y)
 	}
 	else if (val == 3 && game->map->points == game->map->points_to_finish)
 	{
-		printf("%i steps! CONGRATULATIONS, TASTY!\n", ++game->map->steps);
+		ft_printf("%i steps! CONGRATULATIONS, TASTY!\n", ++game->map->steps);
 		exit(0);
 	}
 	return (val);
@@ -50,7 +51,7 @@ int	render(t_game *game, int asset, int *dir, int dir_enum)
 			128 * game->map->x, 128 * game->map->y);
 	game->map->x = game->map->x + dir[0];
 	game->map->y = game->map->y + dir[1];
-	printf("%i\n", ++game->map->steps);
+	ft_printf("%i\n", ++game->map->steps);
 	if (game->map->points == game->map->points_to_finish)
 		render_pos(game, DOOR, game->map->exit_x, game->map->exit_y);
 	if (asset == 3 && game->map->points != game->map->points_to_finish)

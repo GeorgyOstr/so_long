@@ -121,11 +121,11 @@ int	ev(int keycode, t_game *game)
 
 int	load_assets(t_game *game)
 {
-	const char	paths[10][50] = {"assets/back.xpm", "assets/wall.xpm",
-		"assets/door.xpm", "assets/item.xpm",
-		"assets/char_back.xpm", "assets/char_left.xpm",
-		"assets/char_front.xpm", "assets/char_right.xpm",
-		"assets/char_door.xpm", "assets/char_item.xpm"};
+	const char	paths[10][50] = {"textures/back.xpm", "textures/wall.xpm",
+		"textures/door.xpm", "textures/item.xpm",
+		"textures/char_back.xpm", "textures/char_left.xpm",
+		"textures/char_front.xpm", "textures/char_right.xpm",
+		"textures/char_door.xpm", "textures/char_item.xpm"};
 	int			i;
 
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 23:09:31 by gostroum          #+#    #+#             */
-/*   Updated: 2025/07/07 14:33:54 by gostroum         ###   ########.fr       */
+/*   Updated: 2025/07/10 22:01:38 by gostroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,31 @@ int	try_move(t_game *game, int x, int y)
 	{
 		game->map->points += 1;
 		game->map->data[game->map->w * y + x] = 1;
-		if (game->map->points == game->map->points_to_finish)
-			render_pos(game, DOOR, game->map->exit_x, game->map->exit_y);
 	}
 	else if (val == 3 && game->map->points == game->map->points_to_finish)
+	{
+		printf("%i steps! CONGRATULATIONS, TASTY!\n", ++game->map->steps);
 		exit(0);
+	}
 	return (val);
 }
 
 int	render(t_game *game, int asset, int *dir, int dir_enum)
 {
-	mlx_put_image_to_window(game->mlx,
-		game->win, (game->assets + BACK)->img,
-		128 * game->map->x, 128 * game->map->y);
+	if (game->map->x == game->map->exit_x && game->map->y == game->map->exit_y)
+		mlx_put_image_to_window(game->mlx,
+			game->win, (game->assets + DOOR)->img,
+			128 * game->map->x, 128 * game->map->y);
+	else
+		mlx_put_image_to_window(game->mlx,
+			game->win, (game->assets + BACK)->img,
+			128 * game->map->x, 128 * game->map->y);
 	game->map->x = game->map->x + dir[0];
 	game->map->y = game->map->y + dir[1];
-	printf("%i, %i, %i, %i\n", game->map->x, game->map->y,
-		game->map->data[game->map->w * game->map->y + game->map->x],
-		game->map->w * game->map->y + game->map->x);
-	if (asset == 3 && game->map->points == game->map->points_to_finish)
+	printf("%i\n", ++game->map->steps);
+	if (game->map->points == game->map->points_to_finish)
+		render_pos(game, DOOR, game->map->exit_x, game->map->exit_y);
+	if (asset == 3 && game->map->points != game->map->points_to_finish)
 		render_pos(game, CHAR_DOOR, game->map->x, game->map->y);
 	else if (asset == 1 || asset == 3)
 		render_pos(game, CHAR_BACK + dir_enum,
@@ -79,6 +85,7 @@ int	render_map(t_game *game)
 		}
 		i++;
 	}
+	render_pos(game, DOOR, game->map->exit_x, game->map->exit_y);
 	render_pos(game, CHAR_FRONT, game->map->x, game->map->y);
 }
 
@@ -142,7 +149,8 @@ int	load_map(t_map *map, char *map_name)
 	map->w = 7;
 	map->h = 7;
 	map->points = 0;
-	map->points_to_finish = 1;
+	map->points_to_finish = 5;
+	map->steps = 0;
 	i = 0;
 	while (i < 1000)
 		map->data[i++] = 0;
@@ -156,10 +164,14 @@ int	load_map(t_map *map, char *map_name)
 			j++;
 		}
 		i++;
-	}	
+	}
 	map->data[17] = 0;
 	map->data[23] = 0;
+	map->data[24] = 2;
+	map->data[25] = 2;
 	map->data[12] = 2;
+	map->data[22] = 2;
+	map->data[33] = 2;
 	map->data[32] = 3;
 	map->exit_x = 4;
 	map->exit_y = 4;

@@ -6,12 +6,16 @@
 /*   By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 23:09:31 by gostroum          #+#    #+#             */
-/*   Updated: 2025/07/10 22:09:34 by gostroum         ###   ########.fr       */
+/*   Updated: 2025/07/10 23:52:09 by gostroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include "ft_printf.h"
+#include "get_next_line.h"
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 int	render_pos(t_game *game, int asset, int x, int y)
 {
@@ -24,7 +28,7 @@ int	try_move(t_game *game, int x, int y)
 {
 	const int	val = game->map->data[game->map->w * y + x];
 
-	if (x >= game->map->h || y >= game->map->w || x < 0 || y < 0)
+	if (x >= game->map->w || y >= game->map->h || x < 0 || y < 0)
 		return (0);
 	if (val == 2)
 	{
@@ -141,7 +145,7 @@ int	load_assets(t_game *game)
 	}
 }
 
-int	load_map(t_map *map, char *map_name)
+int	dummy_map(t_map *map, char *map_name)
 {
 	int	i;
 	int	j;
@@ -180,14 +184,87 @@ int	load_map(t_map *map, char *map_name)
 	map->y = 1;
 }
 
-int	main(void)
+size_t	ft_strlen(const char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (*(str++))
+		i++;
+	return (i);
+}
+
+int	process_line(t_map *map, int linenum, char *line)
+{
+	int	i;
+	const int len = ft_strlen(line) - 1;
+
+	i = 0;
+	if (linenum == 0)
+	{
+		map->w = len;
+	}
+	while (line[i] && line[i] != '\n')
+	{
+		if (line[i] == '1')
+			map->data[linenum * map->w + i] = 0;
+		if (line[i] == '0')
+			map->data[linenum * map->w + i] = 1;
+		else if (line[i] == 'C')
+		{
+			map->points_to_finish += 1;
+			map->data[linenum * map->w + i] = 2;
+		}
+		else if (line[i] == 'E')
+		{
+			map->data[linenum * map->w + i] = 3;
+			map->exit_x = i;
+			map->exit_y = linenum;
+		}
+		else if (line[i] == 'P')
+		{
+			map->data[linenum * map->w + i] = 1;
+			map->x = i;
+			map->y = linenum;
+		}
+		i++;
+	}
+}
+
+int	load_map(t_map *map, char *map_name)
+{
+	char	*s;
+	const int fd = open(map_name, O_RDONLY);
+	int	i;
+
+	map->points_to_finish = 0;
+	map->steps = 0;
+	map->points = 0;
+	i = 0;
+	if (fd < 0)
+		return (-1);
+	s = get_next_line(fd);
+	while (i < MAX_HEIGHT && s)
+	{
+		process_line(map, i++, s);
+		free(s);
+		s = get_next_line(fd);
+	}
+	close(fd);
+	map->h = i;
+}
+
+int	main(int argc, char **argv)
 {
 	t_data		img;
 	t_data		imgback;
 	t_game		game;
 	t_map		map;
 
-	load_map(&map, "maps/map.bae");
+	if (argc != 2)
+		load_map(&map, "maps/default.ber");
+	else
+		load_map(&map, argv[1]);
 	game.mlx = mlx_init();
 	game.win = mlx_new_window(game.mlx,
 			map.w * 128, map.h * 128, "GRIBCHIK_GAME");

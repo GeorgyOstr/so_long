@@ -6,7 +6,7 @@
 /*   By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 14:08:06 by gostroum          #+#    #+#             */
-/*   Updated: 2025/07/10 21:47:52 by gostroum         ###   ########.fr       */
+/*   Updated: 2025/07/12 00:29:30 by gostroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ typedef struct s_map
 	int	y;
 	int	points;
 	int	points_to_finish;
-	int steps;
+	int	steps;
 }				t_map;
 
 typedef struct s_game

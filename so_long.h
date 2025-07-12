@@ -6,7 +6,7 @@
 /*   By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 14:08:06 by gostroum          #+#    #+#             */
-/*   Updated: 2025/07/12 00:29:30 by gostroum         ###   ########.fr       */
+/*   Updated: 2025/07/12 22:44:58 by gostroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,19 @@
 # define CHAR_DOOR		8
 # define CHAR_ITEM		9
 
-# include "mlx.h"
+# define DOOR_OPEN		10	
+# define EXIT			11
+
+# define ASSETS			12
+
 # include <stdio.h>
 # include <stdlib.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+# include "ft_printf.h"
+# include "get_next_line.h"
+# include "mlx.h"
 
 typedef struct s_data
 {
@@ -68,7 +78,15 @@ typedef struct s_game
 {
 	void	*mlx;
 	void	*win;
-	t_data	assets[10];
+	t_data	assets[ASSETS];
 	t_map	*map;
 }				t_game;
+
+int	render_pos(t_game *game, int asset, int x, int y);
+int	render(t_game *game, int asset, int *dir, int dir_enum);
+int	render_map(t_game *game);
+
+int	load_assets(t_game *game);
+int	load_map(t_map *map, char *map_name);
+
 #endif

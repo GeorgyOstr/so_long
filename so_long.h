@@ -22,23 +22,30 @@
 # define KEY_D			1751
 # define KEY_ESC		65307
 
-# define BACK			0
-# define WALL			1
-# define DOOR			2
-# define ITEM			3
+# define BACK				0
+# define WALL				1
+# define DOOR				2
+# define ITEM				3
 
-# define CHAR_BACK		4
-# define CHAR_LEFT		5
-# define CHAR_FRONT		6
-# define CHAR_RIGHT		7
+# define CHAR_BACK			4
+# define CHAR_LEFT			5
+# define CHAR_FRONT			6
+# define CHAR_RIGHT			7
 
-# define CHAR_DOOR		8
-# define CHAR_ITEM		9
+# define CHAR_DOOR			8
+# define CHAR_ITEM			9
 
-# define DOOR_OPEN		10	
-# define EXIT			11
+# define DOOR_OPEN			10
+# define EXIT				11
 
-# define ASSETS			12
+# define CHAR_BACK_1		12
+# define CHAR_LEFT_1		13
+# define CHAR_FRONT_1		14
+# define CHAR_RIGHT_1		15
+
+# define STEP				8
+
+# define ASSETS				16
 
 # include <stdio.h>
 # include <stdlib.h>

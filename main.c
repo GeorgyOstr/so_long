@@ -20,7 +20,8 @@ int	try_move(t_game *game, int dir_enum, int x, int y)
 		return (0);
 	if (game->map->p.x != game->map->exit.x
 		|| game->map->p.y != game->map->exit.y)
-		render_pos(game, CHAR_BACK + dir_enum, game->map->p.x, game->map->p.y);
+		render_pos(game, CHAR_BACK + dir_enum + (game->map->steps % 2) * STEP,
+			game->map->p.x, game->map->p.y);
 	if (val == 2)
 	{
 		game->map->points += 1;

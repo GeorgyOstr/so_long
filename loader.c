@@ -19,7 +19,10 @@ int	load_assets(t_game *game)
 		"textures/char_back.xpm", "textures/char_left.xpm",
 		"textures/char_front.xpm", "textures/char_right.xpm",
 		"textures/char_door.xpm", "textures/char_item.xpm",
-		"textures/door_open.xpm", "textures/exit.xpm"};
+		"textures/door_open.xpm", "textures/exit.xpm",
+		"textures/char_back_1.xpm", "textures/char_left_1.xpm",
+		"textures/char_front_1.xpm", "textures/char_right_1.xpm"
+	};
 	int			i;
 
 	i = 0;

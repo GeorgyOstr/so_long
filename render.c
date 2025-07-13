@@ -21,14 +21,14 @@ int	render_pos(t_game *game, int asset, int x, int y)
 
 int	render(t_game *game, int asset, int *dir, int dir_enum)
 {
-	if (game->map->p.x == game->map->exit.x && game->map->p.y == game->map->exit.y)
-		mlx_put_image_to_window(game->mlx,
-			game->win, (game->assets + DOOR)->img,
-			128 * game->map->p.x, 128 * game->map->p.y);
+	if (game->map->p.x == game->map->exit.x
+		&& game->map->p.y == game->map->exit.y && asset == 3)
+		render_pos(game, CHAR_DOOR, game->map->p.x, game->map->p.y);
+	else if (game->map->p.x == game->map->exit.x
+		&& game->map->p.y == game->map->exit.y && (asset == 2 || asset == 1))
+		render_pos(game, DOOR, game->map->p.x, game->map->p.y);
 	else
-		mlx_put_image_to_window(game->mlx,
-			game->win, (game->assets + BACK)->img,
-			128 * game->map->p.x, 128 * game->map->p.y);
+		render_pos(game, BACK, game->map->p.x, game->map->p.y);
 	game->map->p.x = game->map->p.x + dir[0];
 	game->map->p.y = game->map->p.y + dir[1];
 	ft_printf("%i\n", ++game->map->steps);
@@ -42,7 +42,7 @@ int	render(t_game *game, int asset, int *dir, int dir_enum)
 	else if (asset == 3 && game->map->points != game->map->points_to_finish)
 		render_pos(game, CHAR_DOOR, game->map->p.x, game->map->p.y);
 	else if (asset == 1 || asset == 3)
-		render_pos(game, CHAR_BACK + dir_enum,
+		render_pos(game, CHAR_BACK + dir_enum + (game->map->steps % 2) * STEP,
 			game->map->p.x, game->map->p.y);
 	else if (asset == 2)
 		render_pos(game, CHAR_ITEM, game->map->p.x, game->map->p.y);

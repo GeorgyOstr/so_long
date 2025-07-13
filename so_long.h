@@ -6,7 +6,7 @@
 /*   By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 14:08:06 by gostroum          #+#    #+#             */
-/*   Updated: 2025/07/13 12:24:41 by gostroum         ###   ########.fr       */
+/*   Updated: 2025/07/13 20:05:23 by gostroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@
 # define KEY_A			1734
 # define KEY_S			1753
 # define KEY_D			1751
+# define KEY_FORWARD	65362	
+# define KEY_LEFT		65361
+# define KEY_BACK		65364
+# define KEY_RIGHT		65363
 # define KEY_ESC		65307
 
 # define BACK				0

@@ -113,6 +113,7 @@ int	load_map(t_map *map, char *map_name)
 	char		*s;
 	const int	fd = open(map_name, O_RDONLY);
 	int			i;
+	int			res;
 
 	map->points_to_finish = 0;
 	map->steps = 0;
@@ -121,12 +122,15 @@ int	load_map(t_map *map, char *map_name)
 	if (fd < 0)
 		return (-1);
 	s = get_next_line(fd);
-	while (i < MAX_HEIGHT && s)
+	res = 1;
+	while (i < MAX_HEIGHT && s && res)
 	{
-		process_line(map, i++, s);
+		res = process_line(map, i++, s);
 		free(s);
 		s = get_next_line(fd);
 	}
 	close(fd);
 	map->dim.y = i;
+	if (get_next_line(fd) || res)
+		return (0);
 }

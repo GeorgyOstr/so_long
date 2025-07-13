@@ -6,7 +6,7 @@
 /*   By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 23:09:31 by gostroum          #+#    #+#             */
-/*   Updated: 2025/07/13 12:09:35 by gostroum         ###   ########.fr       */
+/*   Updated: 2025/07/13 19:55:13 by gostroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ int	ev(int keycode, t_game *game)
 	int			try;
 
 	dir_enum = -1;
-	if (keycode == KEY_W)
+	if (keycode == KEY_W || keycode == KEY_FORWARD)
 		dir_enum = 0;
-	else if (keycode == KEY_A)
+	else if (keycode == KEY_A || keycode == KEY_LEFT)
 		dir_enum = 1;
-	else if (keycode == KEY_S)
+	else if (keycode == KEY_S || keycode == KEY_BACK)
 		dir_enum = 2;
-	else if (keycode == KEY_D)
+	else if (keycode == KEY_D || keycode == KEY_RIGHT)
 		dir_enum = 3;
 	else if (keycode == KEY_ESC)
 		exit(0);

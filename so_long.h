@@ -6,7 +6,7 @@
 /*   By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 14:08:06 by gostroum          #+#    #+#             */
-/*   Updated: 2025/07/13 20:05:23 by gostroum         ###   ########.fr       */
+/*   Updated: 2025/07/13 21:36:14 by gostroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@
 # define KEY_RIGHT		65363
 # define KEY_ESC		65307
 
-# define BACK				0
-# define WALL				1
-# define DOOR				2
-# define ITEM				3
+# define WALL				0
+# define BACK				1
+# define ITEM				2
+# define DOOR				3
 
 # define CHAR_BACK			4
 # define CHAR_LEFT			5

@@ -6,7 +6,7 @@
 /*   By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 21:08:43 by gostroum          #+#    #+#             */
-/*   Updated: 2025/07/13 12:21:07 by gostroum         ###   ########.fr       */
+/*   Updated: 2025/07/13 21:36:32 by gostroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	load_assets(t_game *game)
 {
-	const char	paths[ASSETS][50] = {"textures/back.xpm", "textures/wall.xpm",
-		"textures/door.xpm", "textures/item.xpm",
+	const char	paths[ASSETS][50] = {"textures/wall.xpm", "textures/back.xpm",
+		"textures/item.xpm", "textures/door.xpm",
 		"textures/char_back.xpm", "textures/char_left.xpm",
 		"textures/char_front.xpm", "textures/char_right.xpm",
 		"textures/char_door.xpm", "textures/char_item.xpm",
@@ -50,6 +50,10 @@ static size_t	ft_strlen(const char *str)
 
 int	flood_check(t_map *map, int curr_x, int curr_y)
 {
+	if (curr_x == 1)
+	{
+		
+	}
 }
 
 int	side_check(t_map *map)

@@ -6,7 +6,7 @@
 /*   By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 21:08:43 by gostroum          #+#    #+#             */
-/*   Updated: 2025/07/12 22:59:44 by gostroum         ###   ########.fr       */
+/*   Updated: 2025/07/13 12:21:07 by gostroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,16 @@ int	side_check(t_map *map)
 {
 	int	i;
 
-	while (i < map->w)
+	while (i < map->dim.x)
 	{
 		if (map->data[i] != 0
-			&& map->data[map->w * (map->h - 1) + i] != 0)
+			&& map->data[map->dim.x * (map->dim.y - 1) + i] != 0)
 			return (0);
 	}
-	while (i < map->h)
+	while (i < map->dim.y)
 	{
-		if (map->data[map->w * i] != 0
-			&& map->data[map->w * (i + 1) - 1] != 0)
+		if (map->data[map->dim.x * i] != 0
+			&& map->data[map->dim.x * (i + 1) - 1] != 0)
 			return (0);
 	}
 	return (1);
@@ -75,29 +75,31 @@ int	process_line(t_map *map, int linenum, char *line)
 
 	i = 0;
 	if (linenum == 0)
-		map->w = len;
+		map->dim.x = len;
+	if (map->dim.x > MAX_WIDTH)
+		return (0);
 	while (line[i] && line[i] != '\n')
 	{
 		if (line[i] == '1')
-			map->data[linenum * map->w + i] = 0;
+			map->data[linenum * map->dim.x + i] = 0;
 		if (line[i] == '0')
-			map->data[linenum * map->w + i] = 1;
+			map->data[linenum * map->dim.x + i] = 1;
 		else if (line[i] == 'C')
 		{
 			map->points_to_finish += 1;
-			map->data[linenum * map->w + i] = 2;
+			map->data[linenum * map->dim.x + i] = 2;
 		}
 		else if (line[i] == 'E')
 		{
-			map->data[linenum * map->w + i] = 3;
-			map->exit_x = i;
-			map->exit_y = linenum;
+			map->data[linenum * map->dim.x + i] = 3;
+			map->exit.x = i;
+			map->exit.y = linenum;
 		}
 		else if (line[i] == 'P')
 		{
-			map->data[linenum * map->w + i] = 1;
-			map->x = i;
-			map->y = linenum;
+			map->data[linenum * map->dim.x + i] = 1;
+			map->p.x = i;
+			map->p.y = linenum;
 		}
 		i++;
 	}
@@ -123,5 +125,5 @@ int	load_map(t_map *map, char *map_name)
 		s = get_next_line(fd);
 	}
 	close(fd);
-	map->h = i;
+	map->dim.y = i;
 }

@@ -6,7 +6,7 @@
 /*   By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 23:09:31 by gostroum          #+#    #+#             */
-/*   Updated: 2025/07/12 23:55:59 by gostroum         ###   ########.fr       */
+/*   Updated: 2025/07/13 12:09:35 by gostroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 int	try_move(t_game *game, int dir_enum, int x, int y)
 {
-	const int	val = game->map->data[game->map->w * y + x];
+	const int	val = game->map->data[game->map->dim.x * y + x];
 
-	if (x >= game->map->w || y >= game->map->h || x < 0 || y < 0)
+	if (x >= game->map->dim.x || y >= game->map->dim.y || x < 0 || y < 0)
 		return (0);
-	if (game->map->x != game->map->exit_x
-        || game->map->y != game->map->exit_y)
-		render_pos(game, CHAR_BACK + dir_enum, game->map->x, game->map->y);
+	if (game->map->p.x != game->map->exit.x
+		|| game->map->p.y != game->map->exit.y)
+		render_pos(game, CHAR_BACK + dir_enum, game->map->p.x, game->map->p.y);
 	if (val == 2)
 	{
 		game->map->points += 1;
-		game->map->data[game->map->w * y + x] = 1;
+		game->map->data[game->map->dim.x * y + x] = 1;
 	}
 	else if (game->map->points == game->map->points_to_finish
-		&& game->map->x == game->map->exit_x
-		&& game->map->y == game->map->exit_y)
+		&& game->map->p.x == game->map->exit.x
+		&& game->map->p.y == game->map->exit.y)
 		exit(0);
 	return (val);
 }
@@ -55,7 +55,7 @@ int	ev(int keycode, t_game *game)
 		return (0);
 	dir = (int *)directions[dir_enum];
 	try = try_move(game, dir_enum,
-			game->map->x + dir[0], game->map->y + dir[1]);
+			game->map->p.x + dir[0], game->map->p.y + dir[1]);
 	if (try)
 		render(game, try, dir, dir_enum);
 	return (0);
@@ -74,7 +74,7 @@ int	main(int argc, char **argv)
 		load_map(&map, argv[1]);
 	game.mlx = mlx_init();
 	game.win = mlx_new_window(game.mlx,
-			map.w * 128, map.h * 128, "GRIBCHIK_GAME");
+			map.dim.x * 128, map.dim.y * 128, "GRIBCHIK_GAME");
 	game.map = &map;
 	load_assets(&game);
 	render_map(&game);

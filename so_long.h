@@ -6,7 +6,7 @@
 /*   By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 14:08:06 by gostroum          #+#    #+#             */
-/*   Updated: 2025/07/12 22:44:58 by gostroum         ###   ########.fr       */
+/*   Updated: 2025/07/13 12:24:41 by gostroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,12 @@
 # include "get_next_line.h"
 # include "mlx.h"
 
+typedef struct s_pos
+{
+	int	x;
+	int	y;
+}				t_pos;
+
 typedef struct s_data
 {
 	void	*img;
@@ -62,16 +68,13 @@ typedef struct s_data
 
 typedef struct s_map
 {
-	int	data[4096];
-	int	w;
-	int	h;
-	int	exit_x;
-	int	exit_y;
-	int	x;
-	int	y;
-	int	points;
-	int	points_to_finish;
-	int	steps;
+	int		data[4096];
+	t_pos	dim;
+	t_pos	exit;
+	t_pos	p;	
+	int		points;
+	int		points_to_finish;
+	int		steps;
 }				t_map;
 
 typedef struct s_game
@@ -80,6 +83,7 @@ typedef struct s_game
 	void	*win;
 	t_data	assets[ASSETS];
 	t_map	*map;
+	t_pos	display;
 }				t_game;
 
 int	render_pos(t_game *game, int asset, int x, int y);

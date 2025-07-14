@@ -38,43 +38,6 @@ int	load_assets(t_game *game)
 	}
 }
 
-static size_t	ft_strlen(const char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (*(str++))
-		i++;
-	return (i);
-}
-
-int	flood_check(t_map *map, int curr_x, int curr_y)
-{
-	if (curr_x == 1)
-	{
-		
-	}
-}
-
-int	side_check(t_map *map)
-{
-	int	i;
-
-	while (i < map->dim.x)
-	{
-		if (map->data[i] != 0
-			&& map->data[map->dim.x * (map->dim.y - 1) + i] != 0)
-			return (0);
-	}
-	while (i < map->dim.y)
-	{
-		if (map->data[map->dim.x * i] != 0
-			&& map->data[map->dim.x * (i + 1) - 1] != 0)
-			return (0);
-	}
-	return (1);
-}
-
 int	process_line(t_map *map, int linenum, char *line)
 {
 	int			i;
@@ -83,13 +46,13 @@ int	process_line(t_map *map, int linenum, char *line)
 	i = 0;
 	if (linenum == 0)
 		map->dim.x = len;
-	if (map->dim.x > MAX_WIDTH)
-		return (0);
+	if (map->dim.x > MAX_WIDTH || len != map->dim.x)
+		return (error_map_check());
 	while (line[i] && line[i] != '\n')
 	{
 		if (line[i] == '1')
 			map->data[linenum * map->dim.x + i] = 0;
-		if (line[i] == '0')
+		else if (line[i] == '0')
 			map->data[linenum * map->dim.x + i] = 1;
 		else if (line[i] == 'C')
 		{
@@ -99,17 +62,22 @@ int	process_line(t_map *map, int linenum, char *line)
 		else if (line[i] == 'E')
 		{
 			map->data[linenum * map->dim.x + i] = 3;
-			map->exit.x = i;
-			map->exit.y = linenum;
-		}
+			if (map->exit.x >= 0)
+				return (error_map_check());
+				map->exit =(t_pos){i, linenum};
+			}
 		else if (line[i] == 'P')
 		{
 			map->data[linenum * map->dim.x + i] = 1;
-			map->p.x = i;
-			map->p.y = linenum;
+			if (map->p.x >= 0)
+				return (error_map_check());
+			map->p =(t_pos){i, linenum};
 		}
+		else 
+			return (error_map_check());
 		i++;
 	}
+	return (1);
 }
 
 int	load_map(t_map *map, char *map_name)
@@ -122,9 +90,13 @@ int	load_map(t_map *map, char *map_name)
 	map->points_to_finish = 0;
 	map->steps = 0;
 	map->points = 0;
+	map->p.x = -1;
+	map->exit.x = -1;
 	i = 0;
+	if (check_extension(map_name))
+		return (error_file_extension());
 	if (fd < 0)
-		return (-1);
+		return (error_file_exist());
 	s = get_next_line(fd);
 	res = 1;
 	while (i < MAX_HEIGHT && s && res)
@@ -135,6 +107,7 @@ int	load_map(t_map *map, char *map_name)
 	}
 	close(fd);
 	map->dim.y = i;
-	if (get_next_line(fd) || res)
-		return (0);
+	if (get_next_line(fd) || !res || map->p.x < 0 || map->exit.x < 0)
+		return (error_map_check());
+
 }

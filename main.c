@@ -70,14 +70,23 @@ int	main(int argc, char **argv)
 	t_map		map;
 
 	if (argc != 2)
-		load_map(&map, "maps/default.ber");
+	{
+		if (!load_map(&map, "default.ber"))
+			return (0);
+	}
 	else
-		load_map(&map, argv[1]);
-	game.mlx = mlx_init();
+	{
+		if (!load_map(&map, argv[1]))
+			return (0);
+	}
+			game.mlx = mlx_init();
 	game.win = mlx_new_window(game.mlx,
 			map.dim.x * 128, map.dim.y * 128, "GRIBCHIK_GAME");
 	game.map = &map;
-	load_assets(&game);
+	if (!load_assets(&game))
+		return (0);
+	if (!checker(&game))
+		return (0);
 	render_map(&game);
 	mlx_hook(game.win, 2, 1L << 0, ev, &game);
 	mlx_loop(game.mlx);

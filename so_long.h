@@ -97,11 +97,21 @@ typedef struct s_game
 	t_pos	display;
 }				t_game;
 
-int	render_pos(t_game *game, int asset, int x, int y);
-int	render(t_game *game, int asset, int *dir, int dir_enum);
-int	render_map(t_game *game);
+int		render_pos(t_game *game, int asset, int x, int y);
+int		render(t_game *game, int asset, int *dir, int dir_enum);
+int		render_map(t_game *game);
 
-int	load_assets(t_game *game);
-int	load_map(t_map *map, char *map_name);
+int		load_assets(t_game *game);
+int		load_map(t_map *map, char *map_name);
 
+int 	error_file_extension();
+int 	error_file_exist();
+int 	error_map_check();
+int		error_path_check();
+
+int 	ft_strncmp(const char *s1, const char *s2, size_t n);
+size_t	ft_strlen(const char *str);
+
+int		check_extension(char *str);
+int		checker(t_game *game);
 #endif

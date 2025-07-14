@@ -6,7 +6,7 @@
 /*   By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 23:09:31 by gostroum          #+#    #+#             */
-/*   Updated: 2025/07/13 19:55:13 by gostroum         ###   ########.fr       */
+/*   Updated: 2025/07/15 00:59:44 by gostroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ int	ev(int keycode, t_game *game)
 
 int	main(int argc, char **argv)
 {
-	t_data		img;
-	t_data		imgback;
-	t_game		game;
-	t_map		map;
+	t_data	img;
+	t_data	imgback;
+	t_game	game;
+	t_map	map;
 
 	if (argc != 2)
 	{
@@ -79,9 +79,9 @@ int	main(int argc, char **argv)
 		if (!load_map(&map, argv[1]))
 			return (0);
 	}
-			game.mlx = mlx_init();
-	game.win = mlx_new_window(game.mlx,
-			map.dim.x * 128, map.dim.y * 128, "GRIBCHIK_GAME");
+	game.mlx = mlx_init();
+	game.win = mlx_new_window(game.mlx, map.dim.x * 128, map.dim.y * 128,
+			"GRIBCHIK_GAME");
 	game.map = &map;
 	if (!load_assets(&game))
 		return (0);

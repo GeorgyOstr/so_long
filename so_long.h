@@ -51,20 +51,20 @@
 
 # define ASSETS				16
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <fcntl.h>
 # include "ft_printf.h"
 # include "get_next_line.h"
 # include "mlx.h"
+# include <fcntl.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <sys/stat.h>
+# include <sys/types.h>
 
 typedef struct s_pos
 {
-	int	x;
-	int	y;
-}				t_pos;
+	int		x;
+	int		y;
+}			t_pos;
 
 typedef struct s_data
 {
@@ -75,18 +75,18 @@ typedef struct s_data
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-}				t_data;
+}			t_data;
 
 typedef struct s_map
 {
 	int		data[4096];
 	t_pos	dim;
 	t_pos	exit;
-	t_pos	p;	
+	t_pos	p;
 	int		points;
 	int		points_to_finish;
 	int		steps;
-}				t_map;
+}			t_map;
 
 typedef struct s_game
 {
@@ -95,23 +95,23 @@ typedef struct s_game
 	t_data	assets[ASSETS];
 	t_map	*map;
 	t_pos	display;
-}				t_game;
+}			t_game;
 
-int		render_pos(t_game *game, int asset, int x, int y);
-int		render(t_game *game, int asset, int *dir, int dir_enum);
-int		render_map(t_game *game);
+int			render_pos(t_game *game, int asset, int x, int y);
+int			render(t_game *game, int asset, int *dir, int dir_enum);
+int			render_map(t_game *game);
 
-int		load_assets(t_game *game);
-int		load_map(t_map *map, char *map_name);
+int			load_assets(t_game *game);
+int			load_map(t_map *map, char *map_name);
 
-int 	error_file_extension();
-int 	error_file_exist();
-int 	error_map_check();
-int		error_path_check();
+int			error_file_extension(void);
+int			error_file_exist(void);
+int			error_map_check(void);
+int			error_path_check(void);
 
-int 	ft_strncmp(const char *s1, const char *s2, size_t n);
-size_t	ft_strlen(const char *str);
+int			ft_strncmp(const char *s1, const char *s2, size_t n);
+size_t		ft_strlen(const char *str);
 
-int		check_extension(char *str);
-int		checker(t_game *game);
+int			check_extension(char *str);
+int			checker(t_game *game);
 #endif

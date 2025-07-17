@@ -6,7 +6,7 @@
 /*   By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 13:59:44 by gostroum          #+#    #+#             */
-/*   Updated: 2025/07/15 00:59:13 by gostroum         ###   ########.fr       */
+/*   Updated: 2025/07/18 01:02:23 by gostroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,15 @@ int	check_extension(char *str)
 int	flood_check(t_map *map, t_pos curr, const int val)
 {
 	int			ans;
-	const int	pos = curr.x * map->dim.x + curr.y;
+	const int	pos = curr.y * map->dim.x + curr.x;
 
 	ans = 0;
 	if (curr.x < 0 || curr.y < 0 || curr.x >= map->dim.x || curr.y >= map->dim.x
 		|| !map->data[pos] || map->data[pos] == val)
 		return (0);
-	if (map->data[pos] == 1)
+	if (map->data[pos] == 1 || map->data[pos] == 2)
 	{
-		map->data[pos] = val;
+		map->data[pos] += val;
 		ans |= flood_check(map, (t_pos){curr.x + 1, curr.y}, val);
 		ans |= flood_check(map, (t_pos){curr.x, curr.y + 1}, val);
 		ans |= flood_check(map, (t_pos){curr.x - 1, curr.y}, val);
@@ -78,8 +78,8 @@ int	checker(t_game *game)
 	i = 0;
 	while (i < game->map->dim.x * game->map->dim.y)
 	{
-		if (game->map->data[i] == 10)
-			game->map->data[i] = 1;
+		if (game->map->data[i] == 11 || game->map->data[i] == 12)
+			game->map->data[i] -= 10;
 		i++;
 	}
 	if (!side)

@@ -6,7 +6,7 @@
 /*   By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 23:09:31 by gostroum          #+#    #+#             */
-/*   Updated: 2025/07/15 00:59:44 by gostroum         ###   ########.fr       */
+/*   Updated: 2025/07/18 01:01:31 by gostroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,13 @@ int	main(int argc, char **argv)
 			return (0);
 	}
 	game.mlx = mlx_init();
-	game.win = mlx_new_window(game.mlx, map.dim.x * 128, map.dim.y * 128,
-			"GRIBCHIK_GAME");
 	game.map = &map;
 	if (!load_assets(&game))
 		return (0);
 	if (!checker(&game))
 		return (0);
+	game.win = mlx_new_window(game.mlx, map.dim.x * 128, map.dim.y * 128,
+			"GRIBCHIK_GAME");
 	render_map(&game);
 	mlx_hook(game.win, 2, 1L << 0, ev, &game);
 	mlx_loop(game.mlx);

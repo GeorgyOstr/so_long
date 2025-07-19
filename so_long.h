@@ -104,10 +104,10 @@ int			render_map(t_game *game);
 int			load_assets(t_game *game);
 int			load_map(t_map *map, char *map_name);
 
-int			error_file_extension(void);
-int			error_file_exist(void);
-int			error_map_check(void);
-int			error_path_check(void);
+void		error_file_extension(void);
+void		error_file_exist(void);
+void		error_map_check(void);
+void		error_path_check(void);
 
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t		ft_strlen(const char *str);

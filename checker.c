@@ -54,37 +54,46 @@ int	side_check(t_map *map)
 {
 	int	i;
 
+	i = 0;
 	while (i < map->dim.x)
 	{
 		if (map->data[i] != 0
-			&& map->data[map->dim.x * (map->dim.y - 1) + i] != 0)
+			|| map->data[map->dim.x * (map->dim.y - 1) + i] != 0)
 			return (0);
+		i++;
 	}
+	i = 0;
 	while (i < map->dim.y)
 	{
 		if (map->data[map->dim.x * i] != 0
-			&& map->data[map->dim.x * (i + 1) - 1] != 0)
+			|| map->data[map->dim.x * (i + 1) - 1] != 0)
 			return (0);
+		i++;
 	}
 	return (1);
 }
 
 int	checker(t_game *game)
 {
-	const int	side = (side_check(game->map));
-	const int	flood = (flood_check(game->map, game->map->p, 10));
 	int			i;
+	int			sizex;
+	int			sizey;
 
 	i = 0;
+	if (!game->map->points_to_finish)
+		error_map_check();
+	if (!side_check(game->map))
+		error_map_check();
+	if (!flood_check(game->map, game->map->p, 10))
+		error_path_check();
 	while (i < game->map->dim.x * game->map->dim.y)
 	{
 		if (game->map->data[i] == 11 || game->map->data[i] == 12)
 			game->map->data[i] -= 10;
 		i++;
 	}
-	if (!side)
-		return (error_map_check());
-	if (!flood)
-		return (error_path_check());
+	mlx_get_screen_size(game->mlx, &sizex, &sizey);
+	if (sizex / 128 < game->map->dim.x || sizey / 128 < game->map->dim.y)
+		error_map_check();
 	return (1);
 }

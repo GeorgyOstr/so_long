@@ -12,30 +12,30 @@
 
 #include "so_long.h"
 
-int	error_file_extension(void)
+void	error_file_extension(void)
 {
 	write(2, "Error\n", 6);
 	write(2, "Wrong extension\n", 16);
-	return (0);
+	exit(127);
 }
 
-int	error_file_exist(void)
+void	error_file_exist(void)
 {
 	write(2, "Error\n", 6);
 	write(2, "No file\n", 8);
-	return (0);
+	exit(127);
 }
 
-int	error_map_check(void)
+void	error_map_check(void)
 {
 	write(2, "Error\n", 6);
-	write(2, "Bad map\n", 7);
-	return (0);
+	write(2, "Bad map\n", 8);
+	exit(127);
 }
 
-int	error_path_check(void)
+void	error_path_check(void)
 {
 	write(2, "Error\n", 6);
-	write(2, "Bad path\n", 8);
-	return (0);
+	write(2, "Bad path\n", 9);
+	exit(127);
 }

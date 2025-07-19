@@ -28,12 +28,11 @@ int	load_assets(t_game *game)
 	i = 0;
 	while (i < ASSETS)
 	{
-		game->assets[i].img = mlx_new_image(game->mlx, 128, 128);
+		game->assets[i].img = mlx_xpm_file_to_image(game->mlx, (char *)paths[i],
+				&game->assets[i].width, &game->assets[i].height);
 		game->assets[i].addr = mlx_get_data_addr(game->assets[i].img,
 				&game->assets[i].bits_per_pixel, &game->assets[i].line_length,
 				&game->assets[i].endian);
-		game->assets[i].img = mlx_xpm_file_to_image(game->mlx, (char *)paths[i],
-				&game->assets[i].width, &game->assets[i].height);
 		i++;
 	}
 }
@@ -47,7 +46,7 @@ int	process_line(t_map *map, int linenum, char *line)
 	if (linenum == 0)
 		map->dim.x = len;
 	if (map->dim.x > MAX_WIDTH || len != map->dim.x)
-		return (error_map_check());
+		error_map_check();
 	while (line[i] && line[i] != '\n')
 	{
 		if (line[i] == '1')
@@ -63,18 +62,18 @@ int	process_line(t_map *map, int linenum, char *line)
 		{
 			map->data[linenum * map->dim.x + i] = 3;
 			if (map->exit.x >= 0)
-				return (error_map_check());
+				error_map_check();
 			map->exit = (t_pos){i, linenum};
 		}
 		else if (line[i] == 'P')
 		{
 			map->data[linenum * map->dim.x + i] = 1;
 			if (map->p.x >= 0)
-				return (error_map_check());
+				error_map_check();
 			map->p = (t_pos){i, linenum};
 		}
 		else
-			return (error_map_check());
+			error_map_check();
 		i++;
 	}
 	return (1);
@@ -94,9 +93,9 @@ int	load_map(t_map *map, char *map_name)
 	map->exit.x = -1;
 	i = 0;
 	if (check_extension(map_name))
-		return (error_file_extension());
+		error_file_extension();
 	if (fd < 0)
-		return (error_file_exist());
+		error_file_exist();
 	s = get_next_line(fd);
 	res = 1;
 	while (i < MAX_HEIGHT && s && res)
@@ -108,5 +107,5 @@ int	load_map(t_map *map, char *map_name)
 	close(fd);
 	map->dim.y = i;
 	if (get_next_line(fd) || !res || map->p.x < 0 || map->exit.x < 0)
-		return (error_map_check());
+		error_map_check();
 }

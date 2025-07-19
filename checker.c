@@ -23,7 +23,7 @@ int	check_extension(char *str)
 {
 	const int	len = ft_strlen(str);
 
-	if (len < 5 || ft_strncmp(str, ".ber", 4))
+	if (len < 5 || !ft_strncmp(&(str[len - 4]), ".ber", 4))
 		return (0);
 	return (1);
 }

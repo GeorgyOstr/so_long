@@ -12,13 +12,13 @@
 
 #include "so_long.h"
 
-int	render_pos(t_game *game, int asset, int x, int y)
+void	render_pos(t_game *game, int asset, int x, int y)
 {
 	mlx_put_image_to_window(game->mlx, game->win, (game->assets + asset)->img,
 		RES * x, RES * y);
 }
 
-int	render(t_game *game, int asset, int *dir, int dir_enum)
+void	render(t_game *game, int asset, int *dir, int dir_enum)
 {
 	if (game->map->p.x == game->map->exit.x
 		&& game->map->p.y == game->map->exit.y && asset == 3)
@@ -47,7 +47,7 @@ int	render(t_game *game, int asset, int *dir, int dir_enum)
 		render_pos(game, CHAR_ITEM, game->map->p.x, game->map->p.y);
 }
 
-int	render_map(t_game *game)
+void	render_map(t_game *game)
 {
 	int	i;
 	int	j;

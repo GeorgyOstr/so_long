@@ -69,8 +69,6 @@ int	finish(void)
 
 int	main(int argc, char **argv)
 {
-	t_data	img;
-	t_data	imgback;
 	t_game	game;
 	t_map	map;
 
@@ -80,8 +78,7 @@ int	main(int argc, char **argv)
 		load_map(&map, argv[1]);
 	game.mlx = mlx_init();
 	game.map = &map;
-	if (!load_assets(&game))
-		return (0);
+	load_assets(&game);
 	if (!checker(&game))
 		return (0);
 	game.win = mlx_new_window(game.mlx, map.dim.x * RES, map.dim.y * RES,

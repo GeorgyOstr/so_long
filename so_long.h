@@ -99,12 +99,12 @@ typedef struct s_game
 	t_pos	display;
 }			t_game;
 
-int			render_pos(t_game *game, int asset, int x, int y);
-int			render(t_game *game, int asset, int *dir, int dir_enum);
-int			render_map(t_game *game);
+void		render_pos(t_game *game, int asset, int x, int y);
+void		render(t_game *game, int asset, int *dir, int dir_enum);
+void		render_map(t_game *game);
 
-int			load_assets(t_game *game);
-int			load_map(t_map *map, char *map_name);
+void		load_assets(t_game *game);
+void		load_map(t_map *map, char *map_name);
 
 void		error_file_extension(void);
 void		error_file_exist(void);

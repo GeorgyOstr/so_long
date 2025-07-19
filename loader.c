@@ -12,7 +12,7 @@
 
 #include "so_long.h"
 
-int	load_assets(t_game *game)
+void	load_assets(t_game *game)
 {
 	const char	paths[ASSETS][50] = {"textures/wall.xpm", "textures/back.xpm",
 		"textures/item.xpm", "textures/door.xpm",
@@ -81,7 +81,7 @@ int	process_line(t_map *map, int linenum, char *line)
 	return (1);
 }
 
-int	load_map(t_map *map, char *map_name)
+void	load_map(t_map *map, char *map_name)
 {
 	char		*s;
 	const int	fd = open(map_name, O_RDONLY);

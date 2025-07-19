@@ -13,6 +13,8 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
+# define RES			128
+
 # define MAX_WIDTH		60
 # define MAX_HEIGHT		30
 

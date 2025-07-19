@@ -93,7 +93,7 @@ int	checker(t_game *game)
 		i++;
 	}
 	mlx_get_screen_size(game->mlx, &sizex, &sizey);
-	if (sizex / 128 < game->map->dim.x || sizey / 128 < game->map->dim.y)
+	if (sizex / RES < game->map->dim.x || sizey / RES < game->map->dim.y)
 		error_map_check();
 	return (1);
 }

@@ -62,6 +62,11 @@ int	ev(int keycode, t_game *game)
 	return (0);
 }
 
+int	finish(void)
+{
+	exit(0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	img;
@@ -70,24 +75,19 @@ int	main(int argc, char **argv)
 	t_map	map;
 
 	if (argc != 2)
-	{
-		if (!load_map(&map, "default.ber"))
-			return (0);
-	}
+		load_map(&map, "maps/5.ber");
 	else
-	{
-		if (!load_map(&map, argv[1]))
-			return (0);
-	}
+		load_map(&map, argv[1]);
 	game.mlx = mlx_init();
 	game.map = &map;
 	if (!load_assets(&game))
 		return (0);
 	if (!checker(&game))
 		return (0);
-	game.win = mlx_new_window(game.mlx, map.dim.x * 128, map.dim.y * 128,
+	game.win = mlx_new_window(game.mlx, map.dim.x * RES, map.dim.y * RES,
 			"GRIBCHIK_GAME");
 	render_map(&game);
 	mlx_hook(game.win, 2, 1L << 0, ev, &game);
+	mlx_hook(game.win, 17, 0, finish, NULL);
 	mlx_loop(game.mlx);
 }

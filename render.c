@@ -15,7 +15,7 @@
 int	render_pos(t_game *game, int asset, int x, int y)
 {
 	mlx_put_image_to_window(game->mlx, game->win, (game->assets + asset)->img,
-		128 * x, 128 * y);
+		RES * x, RES * y);
 }
 
 int	render(t_game *game, int asset, int *dir, int dir_enum)

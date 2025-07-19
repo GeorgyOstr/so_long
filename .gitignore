@@ -4,3 +4,5 @@ a.out
 *.py
 mlx.h
 .vscode
+so_long
+*.o

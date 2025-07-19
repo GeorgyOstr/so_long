@@ -14,8 +14,9 @@ NAME = so_long
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-MLXFLAGS = -I../minilibx-linux 
-MLXLINK = -L../minilibx-linux -lmlx_Linux -lX11 -lXext -lXrender 
+MLX_DIR = ../minilibx-linux
+MLXFLAGS = -I$(MLX_DIR) 
+MLXLINK = -L$(MLX_DIR) -lmlx_Linux -lX11 -lXext -lXrender 
 RM = rm -f
 
 SOURCES = main.c utils.c loader.c render.c checker.c errors.c \

@@ -6,7 +6,7 @@
 #    By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/04 21:13:43 by gostroum          #+#    #+#              #
-#    Updated: 2025/07/20 17:21:19 by gostroum         ###   ########.fr        #
+#    Updated: 2025/07/20 17:38:46 by gostroum         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,11 +41,11 @@ $(NAME): mlx $(OBJECTS)
 
 clean:
 	${RM} $(OBJECTS)
-	rm -rf minilibx-linux*
-	rm mlx
 
 fclean: clean
 	${RM} $(NAME)
+	rm -rf minilibx-linux*
+	rm mlx
 
 re: fclean all
 

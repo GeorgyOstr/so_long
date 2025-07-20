@@ -6,7 +6,7 @@
 /*   By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/05 14:08:06 by gostroum          #+#    #+#             */
-/*   Updated: 2025/07/13 21:36:14 by gostroum         ###   ########.fr       */
+/*   Updated: 2025/07/20 17:25:13 by gostroum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@
 # define MAX_WIDTH		60
 # define MAX_HEIGHT		30
 
-# define KEY_W			1731
-# define KEY_A			1734
-# define KEY_S			1753
-# define KEY_D			1751
+# define KEY_W			119
+# define KEY_A			97
+# define KEY_S			115
+# define KEY_D			100
 # define KEY_FORWARD	65362	
 # define KEY_LEFT		65361
 # define KEY_BACK		65364
@@ -55,7 +55,7 @@
 
 # include "ft_printf.h"
 # include "get_next_line.h"
-# include "mlx.h"
+# include <mlx.h>
 # include <fcntl.h>
 # include <stdlib.h>
 # include <sys/stat.h>

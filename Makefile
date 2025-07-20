@@ -6,7 +6,7 @@
 #    By: gostroum <gostroum@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/04 21:13:43 by gostroum          #+#    #+#              #
-#    Updated: 2025/05/07 19:41:47 by gostroum         ###   ########.fr        #
+#    Updated: 2025/07/20 17:21:19 by gostroum         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = so_long
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-MLX_DIR = ../minilibx-linux
+MLX_DIR = minilibx-linux
 MLXFLAGS = -I$(MLX_DIR) 
 MLXLINK = -L$(MLX_DIR) -lmlx_Linux -lX11 -lXext
 RM = rm -f
@@ -27,7 +27,13 @@ OBJECTS = $(SOURCES:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJECTS)
+mlx:
+	wget https://cdn.intra.42.fr/document/document/35296/minilibx-linux.tgz -O minilibx-linux.tgz
+	tar -xzf minilibx-linux.tgz
+	make -C $(MLX_DIR)
+	touch mlx
+
+$(NAME): mlx $(OBJECTS)
 	$(CC) $(CFLAGS) $(OBJECTS) $(MLXLINK) -o $(NAME) 
 
 %.o: %.c
@@ -35,6 +41,8 @@ $(NAME): $(OBJECTS)
 
 clean:
 	${RM} $(OBJECTS)
+	rm -rf minilibx-linux*
+	rm mlx
 
 fclean: clean
 	${RM} $(NAME)

@@ -2,7 +2,8 @@
 a.out
 *.a
 *.py
-mlx.h
+mlx*
+minilibx*
 .vscode
 so_long
 *.o

@@ -16,7 +16,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 MLX_DIR = ../minilibx-linux
 MLXFLAGS = -I$(MLX_DIR) 
-MLXLINK = -L$(MLX_DIR) -lmlx_Linux -lX11 -lXext -lXrender 
+MLXLINK = -L$(MLX_DIR) -lmlx_Linux -lX11 -lXext
 RM = rm -f
 
 SOURCES = main.c utils.c loader.c render.c checker.c errors.c \

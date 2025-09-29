@@ -62,6 +62,34 @@ int	ev(int keycode, t_game *game)
 	return (0);
 }
 
+int	mouse_ev(int x, int y, t_game *game)
+{
+	const int	directions[4][2] = {{0, -1}, {-1, 0}, {0, 1}, {1, 0}};
+	int			*dir;
+	int			dir_enum;
+	int			try;
+
+	dir_enum = -1;
+	if ((512 < x && x < 1280) && (0 < y && y < 256))
+		dir_enum = 0;
+	else if ((0 < x && x < 512) && (256 < y && y < 768)) 
+		dir_enum = 1;
+	else if ((512 < x && x < 1280) && (768 < y && y < 1024)) 
+		dir_enum = 2;
+	else if ((1280 < x && x < 1792) && (256 < y && y < 768))
+		dir_enum = 3;
+	else
+		return (0);
+	dir = (int *)directions[dir_enum];
+	try = try_move(game, dir_enum,
+			game->map->p.x + dir[0], game->map->p.y + dir[1]);
+	if (try)
+		render(game, try, dir, dir_enum);
+	return (0);
+}
+
+
+
 int	finish(void)
 {
 	exit(0);
@@ -85,6 +113,7 @@ int	main(int argc, char **argv)
 			"GRIBCHIK_GAME");
 	render_map(&game);
 	mlx_hook(game.win, 2, 1L << 0, ev, &game);
+	mlx_hook(game.win, 6, 1L << 6, mouse_ev, &game);
 	mlx_hook(game.win, 17, 0, finish, NULL);
 	mlx_loop(game.mlx);
 }
